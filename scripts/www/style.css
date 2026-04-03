@@ -1,0 +1,547 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700|Quattrocento:700');
+
+/* ===== 全局深色模式（移除所有浅色模式相关样式） ===== */
+body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: normal;
+    background: black;
+    color: white;
+    overflow: hidden;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+    body.switched {
+        transition: color 0.6s, background-color 0.6s;
+    }
+}
+
+h1,
+h2 {
+    text-align: center;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 30pt;
+    margin-bottom: 10px;
+    color: white;
+}
+
+h2 {
+    font-size: 14pt;
+    font-style: italic;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: lighter;
+    color: #aaa;
+}
+
+.header {
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.byline {
+    font-style: italic;
+}
+
+/* 隐藏顶部的 "WRITTEN IN INK" 选项 */
+.written-in-ink {
+    display: none;
+}
+
+/* 顶部控制栏容器 - 深色模式 */
+#controls {
+    z-index: 4;
+    font-size: 9pt;
+    text-align: center;
+    padding-bottom: 6px;
+    position: fixed;
+    right: 14px;
+    top: 4px;
+    -webkit-user-select: none;
+    user-select: none;
+    background: black;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+    #controls {
+        transition: color 0.6s, background 0.6s;
+    }
+}
+
+/* 控制栏链接：红色文字，悬停变白 */
+#controls a,
+#controls .control-item,
+#controls [data-action] {
+    color: red;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+#controls a:hover,
+#controls .control-item:hover,
+#controls [data-action]:hover {
+    color: white;
+}
+
+#controls [disabled] {
+    color: #444;
+}
+
+#controls > *:not(:last-child):after {
+    content: " | ";
+}
+
+@media screen and (max-width: 980px) {
+    #controls {
+        z-index: 2;
+        padding-top: 24px;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: black;
+    }
+}
+
+/* 外容器与主容器 - 深色背景 */
+.outerContainer {
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 95%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: 24px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 980px) {
+    .outerContainer {
+        margin-top: 44px;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+.container {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 4em;
+    background: black;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+    .switched .container {
+        transition: background-color 0.6s;
+    }
+}
+
+/* 正文段落 */
+p {
+    font-size: 13pt;
+    color: #ddd;
+    line-height: 1.7em;
+    font-weight: normal;
+}
+
+/* 普通链接（非选项按钮） */
+a {
+    font-weight: 700;
+    color: #cc8f1a;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+}
+
+.unclickable {
+    font-weight: 700;
+    color: #c4af87;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    text-decoration: none;
+    cursor: not-allowed;
+}
+
+strong {
+    color: white;
+    font-weight: bold;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.container .hide {
+    opacity: 0.0;
+}
+
+.container .invisible {
+    display: none;
+}
+
+.container > * {
+    opacity: 1.0;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+    .container > * {
+        transition: opacity 1.0s;
+    }
+}
+
+/* ===== 选项按钮（p.choice）全新样式 ===== */
+.choice {
+    text-align: center;
+    margin-bottom: 20px;  /* 选项之间间隔20px */
+}
+
+/* 最后一个选项底部不留多余空白 */
+.choice:last-child {
+    margin-bottom: 0;
+}
+
+/* 可点击的选项框：边框厚重红色、背景黑色、字体红色，居中，最小宽度300px，不换行 */
+.choice a,
+.choice span {
+    display: inline-block;
+    min-width: 300px;
+    width: auto;
+    max-width: 90vw;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 20px;
+    background: black;
+    border: 4px solid red;
+    color: red;
+    font-size: 15pt;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 0 auto;
+    line-height: 1.4;
+}
+
+/* 自定义滚动条（当文字过长时） */
+.choice a::-webkit-scrollbar,
+.choice span::-webkit-scrollbar {
+    height: 4px;
+}
+
+.choice a::-webkit-scrollbar-track,
+.choice span::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.choice a::-webkit-scrollbar-thumb,
+.choice span::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 2px;
+}
+
+/* 悬停效果：边框变白，字体变白，背景保持黑色 */
+.choice a:hover,
+.choice span:hover {
+    border-color: white;
+    color: white;
+    background: black;
+}
+
+/* 针对不可点击的选项（如有），保持样式但改变光标 */
+.choice span.unclickable,
+.choice a.unclickable {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 移动端适配：选项框稍小且居中 */
+@media screen and (max-width: 768px) {
+    .choice a,
+    .choice span {
+        min-width: 240px;
+        font-size: 13pt;
+        padding: 8px 16px;
+        border-width: 3px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .choice a,
+    .choice span {
+        min-width: 200px;
+        font-size: 12pt;
+        padding: 8px 12px;
+    }
+}
+
+/* ===== 结束标记样式 ===== */
+.end {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* ===== 模态框（存档/读档）深色样式 ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-container {
+    background-color: #1a1a1a;
+    color: white;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transform: translateY(0);
+    transition: transform 0.2s ease-out;
+}
+
+.modal-overlay.hidden .modal-container {
+    transform: translateY(20px);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: white;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #999;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: red;
+}
+
+.close-button:active {
+    transform: scale(0.95);
+}
+
+.close-button:focus {
+    outline: none;
+}
+
+.slot-list {
+    overflow-y: auto;
+    max-height: calc(80vh - 100px);
+    padding-right: 10px;
+}
+
+.save-slot {
+    display: flex;
+    padding: 15px;
+    border: 1px solid #444;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    align-items: center;
+    background-color: #111;
+}
+
+.save-slot:hover {
+    background-color: #222;
+    transform: translateX(5px);
+}
+
+.save-slot .number {
+    width: 60px;
+    font-weight: bold;
+    color: #cc8f1a;
+}
+
+.save-slot .content {
+    flex-grow: 1;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.save-slot .time {
+    width: 150px;
+    text-align: right;
+    color: #888;
+    font-size: 12px;
+}
+
+.empty-slot {
+    color: #aaa;
+    background-color: #1a1a1a;
+}
+
+.empty-slot:hover {
+    background-color: #2a2a2a;
+}
+
+.slot-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.slot-list::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 4px;
+}
+
+.slot-list::-webkit-scrollbar-thumb {
+    background: #cc8f1a;
+    border-radius: 4px;
+}
+
+.slot-list::-webkit-scrollbar-thumb:hover {
+    background: red;
+}
+
+.new-save {
+    border: 2px dashed #cc8f1a;
+    background-color: #111;
+}
+
+.new-save:hover {
+    border-color: red;
+    background-color: #1a1a1a;
+}
+
+.empty-notice {
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+    font-style: italic;
+}
+
+.slot-content {
+    display: flex;
+    flex-grow: 1;
+    cursor: pointer;
+    align-items: center;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #999;
+    transition: color 0.2s ease;
+    margin-left: 10px;
+}
+
+.delete-button:hover {
+    color: red;
+}
+
+.new-save .delete-button {
+    display: none;
+}
+
+/* 背景图占位 */
+.bg {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* 闪烁动画（如需使用） */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.blink {
+    animation: blink 1s linear infinite;
+}
+
+/* 输入框容器（用户输入） */
+#input-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+#input-box {
+    flex: 1;
+    padding: 10px;
+    font-size: 13pt;
+    border: 2px solid #cc8f1a;
+    border-radius: 4px;
+    background: #222;
+    color: white;
+    font-family: inherit;
+}
+
+#input-submit {
+    padding: 10px 20px;
+    font-size: 13pt;
+    background: #cc8f1a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#input-submit:hover {
+    background: red;
+}
+
+#input-box:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 5px rgba(204, 143, 26, 0.5);
+}
